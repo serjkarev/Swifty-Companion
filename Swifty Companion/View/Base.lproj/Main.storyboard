@@ -63,22 +63,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="2pB-uw-RBS">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                            </imageView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tFk-3R-66N">
+                                <rect key="frame" x="61" y="73" width="253" height="256"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JwV-xc-xjf">
-                                <rect key="frame" x="11" y="40" width="57" height="30"/>
+                                <rect key="frame" x="16" y="35" width="57" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Go back"/>
                                 <connections>
                                     <action selector="goBackButtonPressed:" destination="Rdk-q6-Rgi" eventType="touchUpInside" id="YC4-S0-GgG"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghb-cZ-aHG">
+                                <rect key="frame" x="37" y="423" width="300" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.65380532122999946" green="1" blue="0.96099854926070349" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJL-Uj-NEm">
+                                <rect key="frame" x="37" y="373" width="300" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.65380532120000001" green="1" blue="0.96099854929999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Skb-Do-fqs" firstAttribute="trailing" secondItem="2pB-uw-RBS" secondAttribute="trailing" id="7E6-MC-73B"/>
+                            <constraint firstItem="2pB-uw-RBS" firstAttribute="leading" secondItem="Skb-Do-fqs" secondAttribute="leading" id="CT9-pP-UMZ"/>
+                            <constraint firstItem="Skb-Do-fqs" firstAttribute="bottom" secondItem="2pB-uw-RBS" secondAttribute="bottom" id="LMM-fR-m6H"/>
+                            <constraint firstItem="2pB-uw-RBS" firstAttribute="top" secondItem="Skb-Do-fqs" secondAttribute="top" id="huF-Uw-I3t"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Skb-Do-fqs"/>
                     </view>
+                    <connections>
+                        <outlet property="emailLable" destination="ghb-cZ-aHG" id="Zyi-hg-AUu"/>
+                        <outlet property="imageView" destination="tFk-3R-66N" id="TZR-od-Npz"/>
+                        <outlet property="nameLable" destination="gJL-Uj-NEm" id="Rmk-dC-KRu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="50F-0n-srP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1665" y="134"/>
+            <point key="canvasLocation" x="1664.8" y="133.5832083958021"/>
         </scene>
     </scenes>
     <resources>

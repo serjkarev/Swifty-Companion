@@ -41,7 +41,8 @@ class SearchProfileViewController: UIViewController {
         if segue.identifier == "goToProfileInfo"{
             let destinationVC = segue.destination as! ProfileViewController
             destinationVC.getUserData(login: searchTextField.text!, token: token)
-            print(token)
+            searchTextField.text = ""
+//            print(token)
         }
     }
 }
