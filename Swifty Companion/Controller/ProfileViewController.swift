@@ -12,12 +12,13 @@ import Alamofire
 import SVProgressHUD
 
 class ProfileViewController: UIViewController {
-
+    
     let API_URL = "https://api.intra.42.fr/v2/users/"
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var emailLable: UILabel!
     @IBOutlet weak var nameLable: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +35,7 @@ class ProfileViewController: UIViewController {
             SVProgressHUD.dismiss()
             if responce.result.isSuccess{
                 let userJSON: JSON = JSON(responce.result.value!)
-//                print(userJSON)
+                //                print(userJSON)
                 self.loadInfo(json: userJSON)
             }else{
                 print("Error \(String(describing: responce.result.error))")

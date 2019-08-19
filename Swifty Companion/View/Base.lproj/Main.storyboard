@@ -22,17 +22,25 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="onJ-WL-YUX">
-                                <rect key="frame" x="139" y="272" width="97" height="30"/>
+                                <rect key="frame" x="120" y="294" width="135" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUK-u0-f6d">
-                                <rect key="frame" x="164" y="422" width="46" height="30"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uFp-GC-3rh">
+                                <rect key="frame" x="90" y="51" width="194" height="195"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUK-u0-f6d">
+                                <rect key="frame" x="142" y="358" width="90" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.32274213433265686" green="0.71748983860015869" blue="0.72943210601806641" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Search">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
+                                    <action selector="searchButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kZd-Nt-AHh"/>
                                     <segue destination="Rdk-q6-Rgi" kind="presentation" identifier="goToProfileInfo" id="XZq-hJ-jDp"/>
                                 </connections>
                             </button>
@@ -48,7 +56,9 @@
                     </view>
                     <navigationItem key="navigationItem" title="Swifty Companion" id="QHD-hp-LE4"/>
                     <connections>
+                        <outlet property="searchButton" destination="LUK-u0-f6d" id="RfV-7K-5WT"/>
                         <outlet property="searchTextField" destination="onJ-WL-YUX" id="SQb-WU-d54"/>
+                        <outlet property="unitLableImageView" destination="uFp-GC-3rh" id="gia-QC-j5j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -73,7 +83,9 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JwV-xc-xjf">
                                 <rect key="frame" x="16" y="35" width="57" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Go back"/>
+                                <state key="normal" title="Go back">
+                                    <color key="titleColor" red="0.32274213429999998" green="0.71748983860000004" blue="0.72943210599999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
                                 <connections>
                                     <action selector="goBackButtonPressed:" destination="Rdk-q6-Rgi" eventType="touchUpInside" id="YC4-S0-GgG"/>
                                 </connections>
@@ -82,14 +94,14 @@
                                 <rect key="frame" x="37" y="423" width="300" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.65380532122999946" green="1" blue="0.96099854926070349" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" red="0.32274213429999998" green="0.71748983860000004" blue="0.72943210599999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gJL-Uj-NEm">
                                 <rect key="frame" x="37" y="373" width="300" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.65380532120000001" green="1" blue="0.96099854929999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="textColor" red="0.32274213429999998" green="0.71748983860000004" blue="0.72943210599999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -105,7 +117,7 @@
                     <connections>
                         <outlet property="emailLable" destination="ghb-cZ-aHG" id="Zyi-hg-AUu"/>
                         <outlet property="imageView" destination="tFk-3R-66N" id="TZR-od-Npz"/>
-                        <outlet property="nameLable" destination="gJL-Uj-NEm" id="Rmk-dC-KRu"/>
+                        <outlet property="nameLable" destination="gJL-Uj-NEm" id="wzH-he-GQK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="50F-0n-srP" userLabel="First Responder" sceneMemberID="firstResponder"/>

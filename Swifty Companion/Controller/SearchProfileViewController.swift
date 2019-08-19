@@ -18,13 +18,18 @@ class SearchProfileViewController: UIViewController {
     let SECRET = "ee1847ec27f5994201c3ec54e325c662b5f20b5068de3f5e849e1d61d6649d12"
     var token = ""
 
+    @IBOutlet weak var unitLableImageView: UIImageView!
     @IBOutlet weak var searchTextField: UITextField!
+    @IBOutlet weak var searchButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        searchTextField.placeholder = "Enter login"
+        searchButton.layer.cornerRadius = 5
+        unitLableImageView.image = UIImage(named: "Combined Shape")
         getToken()
     }
-    
+
     func getToken(){
         let parameters: Parameters = ["grant_type": "client_credentials", "client_id": UID, "client_secret": SECRET]
         Alamofire.request(TOKEN_URL, method: .post, parameters: parameters).responseJSON { (responce) in
@@ -37,6 +42,10 @@ class SearchProfileViewController: UIViewController {
         }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToProfileInfo"{
             let destinationVC = segue.destination as! ProfileViewController
@@ -44,6 +53,10 @@ class SearchProfileViewController: UIViewController {
             searchTextField.text = ""
 //            print(token)
         }
+    }
+    
+    @IBAction func searchButtonPressed(_ sender: UIButton) {
+        
     }
 }
 //{
