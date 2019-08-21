@@ -23,6 +23,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var walletLable: UILabel!
     @IBOutlet weak var locationLable: UILabel!
     @IBOutlet weak var coalitionImageView: UIImageView!
+    @IBOutlet weak var gradeLable: UILabel!
+    @IBOutlet weak var levelLable: UILabel!
+    @IBOutlet weak var levelProgressBar: UIView!
+    @IBOutlet weak var phoneLable: UILabel!
     
     
     override func viewDidLoad() {
@@ -49,6 +53,10 @@ class ProfileViewController: UIViewController {
     }
     
     func loadInfo(json: JSON, parameters: [String:String]){
+        var lvl = 0.0
+        print("!!!!!!!!!!!!!!")
+        print(json["languages_users"])
+        print("!!!!!!!!!!!!!!")
         if let imageURL = json["image_url"].string{
             loadImage(url: imageURL, imageView: userImageView)
         }
@@ -67,6 +75,16 @@ class ProfileViewController: UIViewController {
         if let wallet = json["wallet"].int{
             walletLable.text = String(wallet)+"₳"
         }
+        if let grade = json["cursus_users"][0]["grade"].string{
+            gradeLable.text = grade
+        }
+        if let phone = json["languages_users"]["phone"].string{
+            phoneLable.text = phone
+        }
+        if let level = json["cursus_users"][0]["level"].double{
+            levelLable.text = "level \(level)"
+            lvl = level
+        }
         if let location = json["location"].string {
             locationLable.text = "Available\n" + location
         }else{
@@ -76,8 +94,10 @@ class ProfileViewController: UIViewController {
             Alamofire.request("https://api.intra.42.fr/v2/users/\(userID)/coalitions", method: .get, parameters: parameters).responseJSON { (responce) in
                 if responce.result.isSuccess {
                     let coalitionJSON: JSON = JSON(responce.result.value!)
-                    print(coalitionJSON)
+//                    print(coalitionJSON)
                     self.loadImage(url: coalitionJSON[0]["cover_url"].string!, imageView: self.coalitionImageView)
+                    self.levelProgressBar.backgroundColor = UIColor(hex: coalitionJSON[0]["color"].string!)
+                    self.levelProgressBar.frame.size.width = (self.view.frame.size.width / 100) * CGFloat(Int(lvl*100) % 100)
                 }else{
                     print("Error \(String(describing: responce.result.error))")
                 }
@@ -100,23 +120,41 @@ class ProfileViewController: UIViewController {
     
     
 }
-//URL for background coalition image
-//https://cdn.intra.42.fr/coalition/cover/7/empire_background.jpg
-//https://cdn.intra.42.fr/coalition/cover/6/union_background.jpg
-//https://cdn.intra.42.fr/coalition/cover/5/alliance_background.jpg
-//https://cdn.intra.42.fr/coalition/cover/8/hive_background.jpg
 
-//"https://api.intra.42.fr/v2/users/33744/coalitions"
-
-//[
-//    {
-//        "slug" : "42-kyiv-the-empire",
-//        "cover_url" : "https:\/\/cdn.intra.42.fr\/coalition\/cover\/7\/empire_background.jpg",
-//        "user_id" : 32603,
-//        "image_url" : "https:\/\/cdn.intra.42.fr\/coalition\/image\/7\/Empire_vec.svg",
-//        "id" : 7,
-//        "score" : 26212,
-//        "color" : "#f44336",
-//        "name" : "The Empire"
-//    }
-//]
+extension UIColor {
+    
+    // MARK: - Initialization
+    
+    convenience init?(hex: String) {
+        var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
+        hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
+        
+        var rgb: UInt32 = 0
+        
+        var r: CGFloat = 0.0
+        var g: CGFloat = 0.0
+        var b: CGFloat = 0.0
+        var a: CGFloat = 1.0
+        
+        let length = hexSanitized.count
+        
+        guard Scanner(string: hexSanitized).scanHexInt32(&rgb) else { return nil }
+        
+        if length == 6 {
+            r = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
+            g = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
+            b = CGFloat(rgb & 0x0000FF) / 255.0
+            
+        } else if length == 8 {
+            r = CGFloat((rgb & 0xFF000000) >> 24) / 255.0
+            g = CGFloat((rgb & 0x00FF0000) >> 16) / 255.0
+            b = CGFloat((rgb & 0x0000FF00) >> 8) / 255.0
+            a = CGFloat(rgb & 0x000000FF) / 255.0
+            
+        } else {
+            return nil
+        }
+        
+        self.init(red: r, green: g, blue: b, alpha: a)
+    }
+}
