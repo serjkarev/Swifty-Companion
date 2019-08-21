@@ -102,7 +102,7 @@
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </imageView>
                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5qt-2x-CsK">
-                                                <rect key="frame" x="0.0" y="311" width="375" height="473"/>
+                                                <rect key="frame" x="0.0" y="311" width="375" height="668"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name surname" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="NZe-kj-4H8">
@@ -187,20 +187,43 @@
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.46794734589041098" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="phone" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsI-Ec-Tu8">
-                                                        <rect key="frame" x="37" y="343" width="300" height="25"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                                        <color key="textColor" red="0.32274213429999998" green="0.71748983860000004" blue="0.72943210599999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="email" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4eh-2Y-4uE">
-                                                        <rect key="frame" x="37" y="376" width="300" height="25"/>
+                                                        <rect key="frame" x="54" y="343" width="267" height="25"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                                                         <color key="textColor" red="0.32274213429999998" green="0.71748983860000004" blue="0.72943210599999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RBw-0b-njI">
+                                                        <rect key="frame" x="8" y="376" width="359" height="125"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <prototypes>
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="skillCell" id="Ek9-sj-g6q">
+                                                                <rect key="frame" x="0.0" y="28" width="359" height="44"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ek9-sj-g6q" id="xhj-1s-NKu">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="43.5"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                </tableViewCellContentView>
+                                                            </tableViewCell>
+                                                        </prototypes>
+                                                    </tableView>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="6g4-6b-dDm">
+                                                        <rect key="frame" x="8" y="518" width="359" height="142"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <prototypes>
+                                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="projectCell" id="GOY-gb-Iwj">
+                                                                <rect key="frame" x="0.0" y="28" width="359" height="44"/>
+                                                                <autoresizingMask key="autoresizingMask"/>
+                                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GOY-gb-Iwj" id="79g-ZB-QVP">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="359" height="43.5"/>
+                                                                    <autoresizingMask key="autoresizingMask"/>
+                                                                </tableViewCellContentView>
+                                                            </tableViewCell>
+                                                        </prototypes>
+                                                    </tableView>
                                                 </subviews>
                                                 <color key="backgroundColor" red="0.11774773150682449" green="0.12142487615346909" blue="0.13333645462989807" alpha="0.61906035958904104" colorSpace="custom" customColorSpace="displayP3"/>
                                             </view>
@@ -244,7 +267,8 @@
                         <outlet property="locationLable" destination="Mzk-zd-uBM" id="3mG-JO-uSB"/>
                         <outlet property="loginLable" destination="0uJ-by-hVq" id="p4N-Aw-j0q"/>
                         <outlet property="nameLable" destination="NZe-kj-4H8" id="qSC-SR-dX0"/>
-                        <outlet property="phoneLable" destination="lsI-Ec-Tu8" id="7LT-6Q-SvE"/>
+                        <outlet property="projectTableView" destination="6g4-6b-dDm" id="and-mI-JRC"/>
+                        <outlet property="skillTableView" destination="RBw-0b-njI" id="QAF-aI-JN4"/>
                         <outlet property="userImageView" destination="ebG-WG-9f5" id="ZAO-Zh-5XI"/>
                         <outlet property="walletLable" destination="JSa-9V-eNU" id="T7s-0S-TgD"/>
                     </connections>

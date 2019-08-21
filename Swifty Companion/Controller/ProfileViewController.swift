@@ -11,9 +11,11 @@ import SwiftyJSON
 import Alamofire
 import SVProgressHUD
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     let API_URL = "https://api.intra.42.fr/v2/users/"
+    var skillData : JSON = []
+    var projectData : JSON = []
     
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var nameLable: UILabel!
@@ -26,11 +28,52 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var gradeLable: UILabel!
     @IBOutlet weak var levelLable: UILabel!
     @IBOutlet weak var levelProgressBar: UIView!
-    @IBOutlet weak var phoneLable: UILabel!
+    @IBOutlet weak var skillTableView: UITableView!
+    @IBOutlet weak var projectTableView: UITableView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        skillTableView.delegate = self
+        projectTableView.delegate = self
+        skillTableView.dataSource = self
+        projectTableView.dataSource = self
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        var numberOfRow = 1
+        switch tableView {
+        case skillTableView:
+            numberOfRow = skillData.count
+        case projectTableView:
+            numberOfRow = projectData.count
+        default:
+            print("Error : Some problem in numberOfRowInSection")
+        }
+        print(skillData)
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!\(numberOfRow)")
+        return numberOfRow
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = UITableViewCell()
+        switch tableView {
+        case skillTableView:
+            cell = tableView.dequeueReusableCell(withIdentifier: "skillCell", for: indexPath)
+            cell.textLabel?.text = skillData[indexPath.row]["name"].string!
+//            print(skillData[indexPath.row]["name"].string!)
+        case projectTableView:
+            cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath)
+            cell.textLabel?.text = projectData[indexPath.row]["project"]["name"].string!
+        default:
+            print("Error : Some problem in cellForRowAt indexPath")
+        }
+        return cell
     }
     
     @IBAction func goBackButtonPressed(_ sender: UIButton) {
@@ -45,6 +88,10 @@ class ProfileViewController: UIViewController {
             if responce.result.isSuccess{
                 let userJSON: JSON = JSON(responce.result.value!)
 //                                print(userJSON)
+                self.skillData = userJSON["cursus_users"][0]["skills"]
+                self.projectData = userJSON["projects_users"]
+                print(userJSON["cursus_users"][0]["skills"].count)
+//                print(self.skillData)
                 self.loadInfo(json: userJSON, parameters: parameters)
             }else{
                 print("Error \(String(describing: responce.result.error))")
@@ -54,9 +101,6 @@ class ProfileViewController: UIViewController {
     
     func loadInfo(json: JSON, parameters: [String:String]){
         var lvl = 0.0
-        print("!!!!!!!!!!!!!!")
-        print(json["languages_users"])
-        print("!!!!!!!!!!!!!!")
         if let imageURL = json["image_url"].string{
             loadImage(url: imageURL, imageView: userImageView)
         }
@@ -77,9 +121,6 @@ class ProfileViewController: UIViewController {
         }
         if let grade = json["cursus_users"][0]["grade"].string{
             gradeLable.text = grade
-        }
-        if let phone = json["languages_users"]["phone"].string{
-            phoneLable.text = phone
         }
         if let level = json["cursus_users"][0]["level"].double{
             levelLable.text = "level \(level)"
