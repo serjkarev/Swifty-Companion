@@ -49,7 +49,9 @@ class SearchProfileViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     @IBAction func searchButtonPressed(_ sender: UIButton) {
         profileData = ProfileDataModel()
@@ -75,7 +77,7 @@ class SearchProfileViewController: UIViewController {
                 self.updateUserData(json: userJSON)
             }else{
                 print("Error \(String(describing: responce.result.error))")
-                self.jopa()
+                self.loadOrNot()
             }
         }
     }
@@ -110,6 +112,11 @@ class SearchProfileViewController: UIViewController {
         if let email = json["email"].string {
             profileData.email = email
         }
+        if let campusCity = json["campus"][0]["city"].string{
+            if let campusCountry = json["campus"][0]["country"].string{
+                profileData.campus = campusCity + "/" + campusCountry
+            }
+        }
         if let skills = json["cursus_users"][0]["skills"].array{
             profileData.skills = skills
         }
@@ -120,7 +127,7 @@ class SearchProfileViewController: UIViewController {
         if let userID = json["languages_users"][0]["user_id"].int {
             getCoalitionData(userID: userID)
         }else{
-            jopa()
+            loadOrNot()
         }
     }
     
@@ -135,12 +142,12 @@ class SearchProfileViewController: UIViewController {
                 print("Error \(String(describing: responce.result.error))")
             }
             DispatchQueue.main.async {
-                self.jopa()
+                self.loadOrNot()
             }
         }
     }
     
-    func jopa(){
+    func loadOrNot(){
         SVProgressHUD.dismiss()
         if profileData.login == "" {
             let alert = UIAlertController(title: "Wrong login", message: "User \(searchTextField.text!) not found", preferredStyle: .alert)

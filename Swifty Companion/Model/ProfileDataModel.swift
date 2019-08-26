@@ -20,6 +20,7 @@ class ProfileDataModel {
     var wallet: Int = 0
     var grade: String = ""
     var email: String = ""
+    var campus: String = ""
     var coalitionCoverURL: String = ""
     var backgroundColor: UIColor? = nil
     var skills: [JSON] = []

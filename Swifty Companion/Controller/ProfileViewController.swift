@@ -19,6 +19,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var nameLable: UILabel!
     @IBOutlet weak var loginLable: UILabel!
     @IBOutlet weak var emailLable: UILabel!
+    @IBOutlet weak var campusLabel: UILabel!
     @IBOutlet weak var corectionLable: UILabel!
     @IBOutlet weak var walletLable: UILabel!
     @IBOutlet weak var locationLable: UILabel!
@@ -47,6 +48,10 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -103,11 +108,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         corectionLable.text = "\(profileData.evaluationPoints)"
         walletLable.text = "\(profileData.wallet) ₳"
         gradeLable.text = profileData.grade
+        campusLabel.text = profileData.campus
         emailLable.text = profileData.email
         if profileData.backgroundColor != nil {
             evalInscription.textColor = profileData.backgroundColor
             walletInscription.textColor = profileData.backgroundColor
             gradeInscription.textColor = profileData.backgroundColor
+            campusLabel.textColor = profileData.backgroundColor
             emailLable.textColor = profileData.backgroundColor
         }
     }
