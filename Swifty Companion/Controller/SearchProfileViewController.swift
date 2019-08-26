@@ -11,8 +11,14 @@ import Alamofire
 import SwiftyJSON
 import SVProgressHUD
 
+protocol SearchProfileDelegate{
+    func getUserData(login: String, token: String)
+}
+
 class SearchProfileViewController: UIViewController {
     
+    var delegate: SearchProfileDelegate?
+
     let TOKEN_URL = "https://api.intra.42.fr/oauth/token"
     let UID = "640c7a697757240df8a0e79bc5ca8c2b31dbb80019e1356b8eb91c399dd7c85d"
     let SECRET = "ee1847ec27f5994201c3ec54e325c662b5f20b5068de3f5e849e1d61d6649d12"
@@ -46,23 +52,21 @@ class SearchProfileViewController: UIViewController {
         self.view.endEditing(true)
     }
     
+
+    
+    @IBAction func searchButtonPressed(_ sender: UIButton) {
+//        delegate?.getUserData(login: searchTextField.text!, token: token)
+        performSegue(withIdentifier: "goToProfileInfo", sender: self)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        print("prepare")
         if segue.identifier == "goToProfileInfo"{
             let destinationVC = segue.destination as! ProfileViewController
             destinationVC.getUserData(login: searchTextField.text!, token: token)
             searchTextField.text = ""
-//            print(token)
         }
     }
     
-    @IBAction func searchButtonPressed(_ sender: UIButton) {
-        
-    }
+    
 }
-//{
-//    "scope" : "public",
-//    "token_type" : "bearer",
-//    "expires_in" : 6966,
-//    "access_token" : "7b244b473992a358638e71f90f50184e6ca4e11e7ad84c468d4645eb5f8cc3c8",
-//    "created_at" : 1566057597
-//}

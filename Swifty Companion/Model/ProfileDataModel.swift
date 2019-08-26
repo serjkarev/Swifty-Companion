@@ -7,14 +7,21 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class ProfileDataModel {
-//    var picture: ???
+
+    var imagrURL: String = ""
+    var name: String = ""
     var login: String = ""
-    var email: String = ""
-    var mobile: String = ""
-    var level: Double = 0.0
     var location: String = ""
+    var level: Double = 0.0
+    var evaluationPoints: Int = 0
     var wallet: Int = 0
-    var correction: Int = 0
+    var grade: String = ""
+    var email: String = ""
+    var coalitionCoverURL: String = ""
+    var backgroundColor: String = ""
+    var skills: [JSON] = []
+    var projects: [JSON] = []
 }

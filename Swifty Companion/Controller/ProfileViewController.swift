@@ -11,11 +11,14 @@ import SwiftyJSON
 import Alamofire
 import SVProgressHUD
 
-class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, SearchProfileDelegate {
+
+    var profileData = ProfileDataModel()
+    var token = ""
     
     let API_URL = "https://api.intra.42.fr/v2/users/"
-    var skillData : JSON = []
-    var projectData : JSON = []
+    var json: JSON = []
+    var parameters: [String:String] = [:]
     
     @IBOutlet weak var userImageView: UIImageView!
     @IBOutlet weak var nameLable: UILabel!
@@ -34,11 +37,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         skillTableView.delegate = self
         projectTableView.delegate = self
         skillTableView.dataSource = self
         projectTableView.dataSource = self
+        skillTableView.allowsSelection = false
+        projectTableView.allowsSelection = false
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -49,31 +53,46 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         var numberOfRow = 1
         switch tableView {
         case skillTableView:
-            numberOfRow = skillData.count
+            numberOfRow = profileData.skills.count
         case projectTableView:
-            numberOfRow = projectData.count
+            numberOfRow = profileData.projects.count
         default:
             print("Error : Some problem in numberOfRowInSection")
         }
-        print(skillData)
-        print("!!!!!!!!!!!!!!!!!!!!!!!!!!\(numberOfRow)")
         return numberOfRow
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
+//        var cell = UITableViewCell()
         switch tableView {
         case skillTableView:
-            cell = tableView.dequeueReusableCell(withIdentifier: "skillCell", for: indexPath)
-            cell.textLabel?.text = skillData[indexPath.row]["name"].string!
-//            print(skillData[indexPath.row]["name"].string!)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "skillCell", for: indexPath) as! SkillCell
+            cell.textLabel?.text = profileData.skills[indexPath.row]["name"].string!
+            cell.skillLevelLabel.text = String(profileData.skills[indexPath.row]["level"].double!)
+            return cell
         case projectTableView:
-            cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath)
-            cell.textLabel?.text = projectData[indexPath.row]["project"]["name"].string!
+            let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath) as! ProjectCell
+            cell.textLabel?.text = profileData.projects[indexPath.row]["project"]["name"].string!
+            if profileData.projects[indexPath.row]["status"].string! == "finished"{
+                cell.projectGrade.text = String(profileData.projects[indexPath.row]["final_mark"].int!)
+                if profileData.projects[indexPath.row]["final_mark"] > 60{
+                    cell.textLabel?.textColor = UIColor.green
+                    cell.projectGrade.textColor = UIColor.green
+                }else{
+                    cell.textLabel?.textColor = UIColor.red
+                    cell.projectGrade.textColor = UIColor.red
+                }
+            }else if profileData.projects[indexPath.row]["status"].string! == "in_progress"{
+                cell.projectGrade.text = "in progress"
+                cell.projectGrade.textColor = UIColor.black
+                cell.textLabel?.textColor = UIColor.black
+            }
+            return cell
         default:
             print("Error : Some problem in cellForRowAt indexPath")
+            return UITableViewCell()
         }
-        return cell
+//        return cell
     }
     
     @IBAction func goBackButtonPressed(_ sender: UIButton) {
@@ -82,72 +101,114 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
 
     func getUserData(login: String, token: String){
         SVProgressHUD.show()
+        self.token = token
         let parameters = ["access_token": token]
         Alamofire.request(API_URL + login, method: .get, parameters: parameters).responseJSON { (responce) in
-            SVProgressHUD.dismiss()
             if responce.result.isSuccess{
-                let userJSON: JSON = JSON(responce.result.value!)
-//                                print(userJSON)
-                self.skillData = userJSON["cursus_users"][0]["skills"]
-                self.projectData = userJSON["projects_users"]
-                print(userJSON["cursus_users"][0]["skills"].count)
-//                print(self.skillData)
-                self.loadInfo(json: userJSON, parameters: parameters)
+                let userJSON = JSON(responce.result.value!)
+                self.updateUserData(json: userJSON)
             }else{
                 print("Error \(String(describing: responce.result.error))")
             }
         }
     }
     
-    func loadInfo(json: JSON, parameters: [String:String]){
-        var lvl = 0.0
+    func updateUserData(json: JSON){
         if let imageURL = json["image_url"].string{
-            loadImage(url: imageURL, imageView: userImageView)
+            profileData.imagrURL = imageURL
         }
-        if let email = json["email"].string {
-            emailLable.text = email
-        }
-        if let name = json["displayname"].string {
-            nameLable.text = name
+        if let name = json["displayname"].string{
+            profileData.name = name
         }
         if let login = json["login"].string{
-            loginLable.text = login
-        }
-        if let correction = json["correction_point"].int{
-            corectionLable.text = String(correction)
-        }
-        if let wallet = json["wallet"].int{
-            walletLable.text = String(wallet)+"₳"
-        }
-        if let grade = json["cursus_users"][0]["grade"].string{
-            gradeLable.text = grade
-        }
-        if let level = json["cursus_users"][0]["level"].double{
-            levelLable.text = "level \(level)"
-            lvl = level
+            profileData.login = login
         }
         if let location = json["location"].string {
-            locationLable.text = "Available\n" + location
+            profileData.location = "Available\n" + location
         }else{
-            locationLable.text = "Unavailable\n - "
+            profileData.location = "Unavailable\n - "
+        }
+        if let level = json["cursus_users"][0]["level"].double{
+            profileData.level = level
+        }
+        if let correction = json["correction_point"].int{
+            profileData.evaluationPoints = correction
+        }
+        if let wallet = json["wallet"].int{
+            profileData.wallet = wallet
+        }
+        if let grade = json["cursus_users"][0]["grade"].string{
+            profileData.grade = grade
+        }
+        if let email = json["email"].string {
+            profileData.email = email
+        }
+        if let skills = json["cursus_users"][0]["skills"].array{
+            profileData.skills = skills
+        }
+        if let projects = json["projects_users"].array{
+            profileData.projects = projects
         }
         if let userID = json["languages_users"][0]["user_id"].int {
-            Alamofire.request("https://api.intra.42.fr/v2/users/\(userID)/coalitions", method: .get, parameters: parameters).responseJSON { (responce) in
-                if responce.result.isSuccess {
-                    let coalitionJSON: JSON = JSON(responce.result.value!)
-//                    print(coalitionJSON)
-                    self.loadImage(url: coalitionJSON[0]["cover_url"].string!, imageView: self.coalitionImageView)
-                    self.levelProgressBar.backgroundColor = UIColor(hex: coalitionJSON[0]["color"].string!)
-                    self.levelProgressBar.frame.size.width = (self.view.frame.size.width / 100) * CGFloat(Int(lvl*100) % 100)
-                }else{
-                    print("Error \(String(describing: responce.result.error))")
-                }
+            getCoalitionData(userID: userID)
+        }
+        loadUserData()
+        SVProgressHUD.dismiss()
+    }
+    
+    func getCoalitionData(userID: Int){
+        
+        let parameters = ["access_token": token]
+        Alamofire.request("https://api.intra.42.fr/v2/users/\(userID)/coalitions", method: .get, parameters: parameters).responseJSON { (responce) in
+            if responce.result.isSuccess {
+                let coalitionJSON: JSON = JSON(responce.result.value!)
+                self.updateCoalitionData(json: coalitionJSON)
+            }else{
+                print("Error \(String(describing: responce.result.error))")
+            }
+            DispatchQueue.main.async {
+                self.skillTableView.reloadData()
+                self.projectTableView.reloadData()
             }
         }
-        else{
-            nameLable.text = "NOT FOUND"
+    }
+    
+    func updateCoalitionData(json: JSON){
+        if let cover = json[0]["cover_url"].string{
+            profileData.coalitionCoverURL = cover
         }
-        
+        if let backgroundColor = json[0]["color"].string{
+            profileData.backgroundColor = backgroundColor
+            loadCoalitionData()
+        }
+    }
+
+    func loadUserData(){
+        if profileData.login == ""{
+            loadEmpty()
+        }else{
+            loadImage(url: profileData.imagrURL, imageView: userImageView)
+            nameLable.text = profileData.name
+            loginLable.text = profileData.login
+            locationLable.text = profileData.location
+            levelLable.text = "Level \(profileData.level)"
+            corectionLable.text = "\(profileData.evaluationPoints)"
+            walletLable.text = "\(profileData.wallet) ₳"
+            gradeLable.text = profileData.grade
+            emailLable.text = profileData.email
+            
+        }
+    }
+    
+    func loadCoalitionData(){
+        let level = profileData.level
+        levelProgressBar.backgroundColor = UIColor(hex: profileData.backgroundColor)
+        levelProgressBar.frame.size.width = view.frame.size.width / 100 * CGFloat(Int(level*100) % 100)
+        loadImage(url: profileData.coalitionCoverURL, imageView: coalitionImageView)
+    }
+    
+    func loadEmpty(){
+        print("NOT FOUND")
     }
     
     func loadImage(url: String, imageView: UIImageView){
@@ -198,4 +259,14 @@ extension UIColor {
         
         self.init(red: r, green: g, blue: b, alpha: a)
     }
+}
+
+class SkillCell: UITableViewCell{
+    
+    @IBOutlet weak var skillLevelLabel: UILabel!
+}
+
+class ProjectCell: UITableViewCell{
+    
+    @IBOutlet weak var projectGrade: UILabel!
 }
