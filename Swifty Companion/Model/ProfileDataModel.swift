@@ -21,7 +21,7 @@ class ProfileDataModel {
     var grade: String = ""
     var email: String = ""
     var coalitionCoverURL: String = ""
-    var backgroundColor: String = ""
+    var backgroundColor: UIColor? = nil
     var skills: [JSON] = []
     var projects: [JSON] = []
 }

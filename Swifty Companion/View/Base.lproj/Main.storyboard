@@ -43,6 +43,13 @@
                                     <action selector="searchButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="q5f-oW-JJ0"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="For example: skarev" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K4E-BA-pCQ">
+                                <rect key="frame" x="129" y="326" width="116" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.57414853570000002" green="0.57416242360000003" blue="0.57415497299999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -63,7 +70,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="887" y="134"/>
+            <point key="canvasLocation" x="885.60000000000002" y="133.5832083958021"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="c5g-1o-cp3">
@@ -175,7 +182,7 @@
                                                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qbz-uJ-xhx">
                                                                 <rect key="frame" x="0.0" y="0.0" width="52" height="53"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <color key="backgroundColor" red="0.32274213429999998" green="0.71748983860000004" blue="0.72943210599999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                             </view>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="level" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="ntt-mM-mSU">
                                                                 <rect key="frame" x="123" y="0.0" width="129" height="52"/>
@@ -206,8 +213,15 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="359" height="43.5"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLw-aE-Z30">
-                                                                            <rect key="frame" x="286" y="11" width="42" height="21"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="L8Q-4H-rz2">
+                                                                            <rect key="frame" x="15" y="11" width="279" height="21"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
+                                                                            <color key="textColor" red="0.32274213429999998" green="0.71748983860000004" blue="0.72943210599999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KLw-aE-Z30">
+                                                                            <rect key="frame" x="302" y="11" width="42" height="21"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                             <nil key="textColor"/>
@@ -217,6 +231,7 @@
                                                                 </tableViewCellContentView>
                                                                 <connections>
                                                                     <outlet property="skillLevelLabel" destination="KLw-aE-Z30" id="tsd-3W-M9S"/>
+                                                                    <outlet property="skillNameLabel" destination="L8Q-4H-rz2" id="Emx-ki-UNZ"/>
                                                                 </connections>
                                                             </tableViewCell>
                                                         </prototypes>
@@ -237,17 +252,25 @@
                                                                     <rect key="frame" x="0.0" y="0.0" width="359" height="74.5"/>
                                                                     <autoresizingMask key="autoresizingMask"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g8d-xS-SCm">
-                                                                            <rect key="frame" x="302" y="15" width="42" height="21"/>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g8d-xS-SCm">
+                                                                            <rect key="frame" x="302" y="15" width="47" height="21"/>
                                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                            <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="17"/>
                                                                             <nil key="textColor"/>
+                                                                            <nil key="highlightedColor"/>
+                                                                        </label>
+                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="wWs-X5-uWn">
+                                                                            <rect key="frame" x="15" y="15" width="279" height="21"/>
+                                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                                                            <color key="textColor" red="0.32274213429999998" green="0.71748983860000004" blue="0.72943210599999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                     </subviews>
                                                                 </tableViewCellContentView>
                                                                 <connections>
                                                                     <outlet property="projectGrade" destination="g8d-xS-SCm" id="J4j-L0-dCG"/>
+                                                                    <outlet property="projectNameLabel" destination="wWs-X5-uWn" id="ePE-lK-BcL"/>
                                                                 </connections>
                                                             </tableViewCell>
                                                         </prototypes>
@@ -293,6 +316,8 @@
                         <outlet property="coalitionImageView" destination="CRI-VS-tXR" id="FEx-Qc-Wpf"/>
                         <outlet property="corectionLable" destination="pFA-pD-tC4" id="fwZ-kG-BWd"/>
                         <outlet property="emailLable" destination="4eh-2Y-4uE" id="vhD-Kv-mUM"/>
+                        <outlet property="evalInscription" destination="ifg-Vk-sNX" id="LBG-9o-vt0"/>
+                        <outlet property="gradeInscription" destination="ffg-I4-7H3" id="zti-Ou-Z72"/>
                         <outlet property="gradeLable" destination="HUs-tQ-7Wl" id="buA-fD-8xE"/>
                         <outlet property="levelLable" destination="ntt-mM-mSU" id="Ia2-Tp-OEZ"/>
                         <outlet property="levelProgressBar" destination="qbz-uJ-xhx" id="dFY-qg-d1C"/>
@@ -302,6 +327,7 @@
                         <outlet property="projectTableView" destination="6g4-6b-dDm" id="and-mI-JRC"/>
                         <outlet property="skillTableView" destination="RBw-0b-njI" id="QAF-aI-JN4"/>
                         <outlet property="userImageView" destination="ebG-WG-9f5" id="ZAO-Zh-5XI"/>
+                        <outlet property="walletInscription" destination="27r-io-MD6" id="7l9-tI-kcT"/>
                         <outlet property="walletLable" destination="JSa-9V-eNU" id="T7s-0S-TgD"/>
                     </connections>
                 </viewController>
