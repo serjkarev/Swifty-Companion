@@ -72,7 +72,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         case skillTableView:
             let cell = tableView.dequeueReusableCell(withIdentifier: "skillCell", for: indexPath) as! SkillCell
             cell.skillNameLabel.text = profileData.skills[indexPath.row]["name"].string!
-            cell.skillLevelLabel.text = String(profileData.skills[indexPath.row]["level"].double!)
+            cell.skillLevelLabel.text = String(format: "%.02f", profileData.skills[indexPath.row]["level"].double!)
             return cell
         case projectTableView:
             let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath) as! ProjectCell
