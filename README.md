@@ -1,2 +1,2 @@
 # Swifty-Companion
-[Swifty Companion Demo](demo/demo.gif)
+[Swifty Companion Demo](Swifty-Companion/demo/demo.gif)
