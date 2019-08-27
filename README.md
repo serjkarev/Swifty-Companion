@@ -1,2 +1,2 @@
 # Swifty-Companion
-[Swifty Companion Demo](https://github.com/serjkarev/Swifty-Companion/tree/master/demo/demo.gif)
+[Swifty Companion Demo](https://github.com/serjkarev/Swifty-Companion/blob/master/demo/demo.gif)
