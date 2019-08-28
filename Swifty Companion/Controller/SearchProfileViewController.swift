@@ -155,7 +155,6 @@ class SearchProfileViewController: UIViewController {
             present(alert, animated: true, completion: nil)
             searchTextField.text = ""
         }else{
-            print("segue and profile card appear")
             performSegue(withIdentifier: "goToProfileInfo", sender: self)
         }
     }
