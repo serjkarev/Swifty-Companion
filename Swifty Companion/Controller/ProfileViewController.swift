@@ -76,17 +76,23 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             return cell
         case projectTableView:
             let cell = tableView.dequeueReusableCell(withIdentifier: "projectCell", for: indexPath) as! ProjectCell
-            cell.projectNameLabel.text = profileData.projects[indexPath.row]["project"]["name"].string!
-            if profileData.projects[indexPath.row]["status"].string! == "finished"{
-                if profileData.projects[indexPath.row]["final_mark"] > 60{
-                    cell.projectGrade.text = "✓" + String(profileData.projects[indexPath.row]["final_mark"].int!)
-                    cell.projectGrade.textColor = UIColor(displayP3Red: 0.365, green: 0.575, blue: 0.321, alpha: 1)
-                }else{
-                    cell.projectGrade.text = "╳" + String(profileData.projects[indexPath.row]["final_mark"].int!)
-                    cell.projectGrade.textColor = UIColor(displayP3Red: 0.791, green: 0.415, blue: 0.443, alpha: 1)
+            if let projectName = profileData.projects[indexPath.row]["project"]["name"].string {
+                cell.projectNameLabel.text = projectName
+            }
+            if let status = profileData.projects[indexPath.row]["status"].string {
+                if status == "finished" {
+                    if let finalMark = profileData.projects[indexPath.row]["final_mark"].int{
+                        if finalMark >= 60{
+                            cell.projectGrade.text = "✓" + String(finalMark)
+                            cell.projectGrade.textColor = UIColor(displayP3Red: 0.365, green: 0.575, blue: 0.321, alpha: 1)
+                        }else{
+                            cell.projectGrade.text = "╳" + String(finalMark)
+                            cell.projectGrade.textColor = UIColor(displayP3Red: 0.791, green: 0.415, blue: 0.443, alpha: 1)
+                        }
+                    }
+                }else if status == "in_progress" || status == "searching_a_group"{
+                    cell.projectGrade.text = "🕓"
                 }
-            }else if profileData.projects[indexPath.row]["status"].string! == "in_progress"{
-                cell.projectGrade.text = "🕓"
             }
             return cell
         default:

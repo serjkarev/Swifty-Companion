@@ -83,6 +83,7 @@ class SearchProfileViewController: UIViewController {
     }
     
     func updateUserData(json: JSON){
+        print(json)
         if let imageURL = json["image_url"].string{
             profileData.imagrURL = imageURL
         }
@@ -120,9 +121,14 @@ class SearchProfileViewController: UIViewController {
         if let skills = json["cursus_users"][0]["skills"].array{
             profileData.skills = skills
         }
-        if var projects = json["projects_users"].array{
-            projects.reverse()
-            profileData.projects = projects
+        if let projects = json["projects_users"].array{
+            for arrayItem in projects{
+                if arrayItem["cursus_ids"][0].int! == 1{
+                    print(arrayItem["project"]["name"].string!)
+                    profileData.projects.append(arrayItem)
+                }
+            }
+            profileData.projects.reverse()
         }
         if let userID = json["languages_users"][0]["user_id"].int {
             getCoalitionData(userID: userID)
